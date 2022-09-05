@@ -1,0 +1,60 @@
+from string import ascii_letters, digits,ascii_lowercase,ascii_uppercase
+from random import randint,choice
+def generate_password(length):
+    list1 = list(i for i in ascii_letters if i not in "IlOo")
+    list12 = list(i for i in ascii_uppercase if i not in "IlOo")
+    list13= list(i for i in ascii_lowercase if i not in "IlOo")
+    list2 = list(i for i in digits if i != '1' and i != '0')
+    list3 = []
+    for i in range(length):
+      num = randint(0,1)
+      if num == 0:
+        list3.append(choice(list1))
+      else:
+        list3.append(choice(list2))
+     
+      
+    string1 = "".join(list3)
+    return string1
+    
+    
+def list_final(length):
+  
+  count = 0
+  flag12,flag13,flag2 = False, False, False
+  while count != 1:
+    if flag12 == True and flag13 == True and flag2 == True:
+      count = 1
+    else:
+      string1 = generate_password(length)
+      flag12,flag13,flag2 = False, False, False
+      for i in range(len(string1)):
+      
+        if string1[i] in ascii_uppercase:
+          flag12 = True
+        
+        else:
+          if string1[i] in ascii_lowercase:
+            flag13 = True
+          
+          else:
+            flag2 = True
+  return string1     
+        
+  
+    
+  
+    
+      
+      
+def generate_passwords(count, length):
+    list4 = []
+    for i in range(count):
+      
+      
+      list4.append(list_final(length))
+    return list4
+
+n, m = int(input()), int(input())
+
+print(*generate_passwords(n,m),sep = "\n")
